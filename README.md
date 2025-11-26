@@ -77,6 +77,6 @@ Adjust the commands if you use Gradle or a different test runner.
 # Reporting
 This project can be configured to generate Cucumber reports. Update the build configuration or runner to enable the report plugin you prefer. Reports can also be uploaded on cloud through reportin.io.
 
-## Contact
+# Contact
 Repository owner: @VenusAgrawal
 
