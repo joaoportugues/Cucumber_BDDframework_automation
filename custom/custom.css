@@ -1,0 +1,19 @@
+.firstException.text-left.small.text-gray {
+    display: none;
+}
+
+.table td, .table th {
+    padding: 2px;
+}
+
+.table tbody > tr > td, .table tbody > tr > th, .table thead > tr > td, .table thead > tr > th {
+    padding: 2px;
+}
+
+.table tbody > tr > td, .table tbody > tr > th {
+    margin: 0;
+}
+
+.table {
+    font-size: 14px;
+}

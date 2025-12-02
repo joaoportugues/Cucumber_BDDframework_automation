@@ -21,7 +21,7 @@ Examples:
 
 @login @invalid_credentials @dev @smoke @regression
 Scenario: Login with invalid credentials
-When User enters the invalid email address 
+When User enters the invalid email address
 And Enters invalid password "12345xyz"
 And Clicks on Login button
 Then User should not Login and get proper warning message.
@@ -35,7 +35,7 @@ Then User should not Login and get proper warning message.
 
 @login @invalid_credentials @smoke @wip @regression
 Scenario: Login with invalid email and valid password
-When User enters the invalid email address 
+When User enters the invalid email address
 And Enters valid password "12345"
 And Clicks on Login button
 Then User should not Login and get proper warning message.

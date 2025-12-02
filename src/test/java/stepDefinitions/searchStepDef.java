@@ -1,6 +1,8 @@
 package stepDefinitions;
 
+import factory.ThreadLocalDriver;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
 import factory.driverFactory;
@@ -8,15 +10,16 @@ import io.cucumber.java.en.*;
 import pages.HomePage;
 import pages.SearchResultsPage;
 
+import static factory.ThreadLocalDriver.getTLDriver;
+
 public class searchStepDef {
 
-	WebDriver driver;
+	WebDriver driver = ThreadLocalDriver.getTLDriver();;
 	HomePage homepage;
 	SearchResultsPage searchResultsPage; 
 	
 	@Given ("User open the Application")
 	public void User_open_the_Application () {
-		driver = driverFactory.getDriver();
 		System.out.println("Application is open");
 	}
 	@When ("User enters the existing product into search field {string}")

@@ -3,6 +3,7 @@ package factory;
 import java.time.Duration;
 import java.util.Properties;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,31 +13,28 @@ import utils.configReader;
 
 public class driverFactory {
 	
-	static WebDriver driver = null;
-	
+	static WebDriver driver;
+
 	public static void initializeBrowser(String browserName) {
-		
-		
-		if (browserName.equals("chrome")) {
-			
-			driver = new ChromeDriver();
-		
-		}else if(browserName.equals("firefox")){
-			
-			driver = new FirefoxDriver();
-			
-		}else if(browserName.equals("edge")){
-			
-			driver = new EdgeDriver();
-			
-		}
+        switch (browserName) {
+            case "chrome" -> {
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                ThreadLocalDriver.setTLDriver(driver);
+            }
+            case "firefox" -> {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                ThreadLocalDriver.setTLDriver(driver);
+            }
+            case "edge" -> {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new EdgeDriver();
+                ThreadLocalDriver.setTLDriver(driver);
+            }
+        }
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		
 	}
-	public static WebDriver getDriver() {
-		return driver;
-	}
-
 }

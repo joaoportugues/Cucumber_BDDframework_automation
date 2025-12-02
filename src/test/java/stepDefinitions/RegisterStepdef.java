@@ -2,8 +2,10 @@
 
 import java.util.Map;
 
+import factory.ThreadLocalDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
 import factory.driverFactory;
@@ -14,15 +16,16 @@ import pages.HomePage;
 import pages.RegisterPage;
 import utils.CommonUtils;
 
-public class RegisterStepdef {
-	
-	WebDriver driver;
+import static factory.ThreadLocalDriver.getTLDriver;
+
+   public class RegisterStepdef {
+
+	   WebDriver driver = ThreadLocalDriver.getTLDriver();;
 	HomePage homepage;
 	RegisterPage registerPage;
 
 	@Given ("User navigates to Account registration page")
 	public void User_navigates_to_Account_registration_page () {
-		driver = driverFactory.getDriver();
 		homepage = new HomePage(driver);
 		homepage.clickOnMyAccount();
 		//driver.findElement(By.xpath("//span[normalize-space()='My Account']")).click();

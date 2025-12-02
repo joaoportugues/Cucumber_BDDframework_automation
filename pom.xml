@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project>
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>TNBDD</groupId>
@@ -11,19 +10,17 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
-
-
   <dependencyManagement>
   </dependencyManagement>
 
 <properties>
-    <cucumber.version>7.14.0</cucumber.version>
-    <selenium.version>4.15.0</selenium.version>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <cucumber.version>7.32.0</cucumber.version>
+    <selenium.version>4.38.0</selenium.version>
+    <maven.plugin.version>3.13.0</maven.plugin.version>
+    <maven.compiler.release>21</maven.compiler.release>
 </properties>
 
-<dependencies>
+    <dependencies>
     <!-- Cucumber Dependencies - ALL SAME VERSION -->
     <dependency>
         <groupId>io.cucumber</groupId>
@@ -49,22 +46,36 @@
 	<dependency>
     	<groupId>io.cucumber</groupId>
     	<artifactId>cucumber-testng</artifactId>
-    	<version>7.14.1</version>
+    	<version>${cucumber.version}</version>
 	</dependency>
     
     <!-- Selenium WebDriver -->
 	<dependency>
     	<groupId>org.seleniumhq.selenium</groupId>
     	<artifactId>selenium-java</artifactId>
-    	<version>4.27.0</version> <!-- Latest stable version -->
+    	<version>${selenium.version}</version> <!-- Latest stable version -->
 	</dependency>
     
     <!-- WebDriver Manager (Optional but recommended) -->
 	<dependency>
     	<groupId>io.github.bonigarcia</groupId>
     	<artifactId>webdrivermanager</artifactId>
-    	<version>5.9.2</version>
+    	<version>6.3.3</version>
 	</dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>5.10.1</version>
+        </dependency>
 </dependencies>
  
 
@@ -75,7 +86,7 @@
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.4.0</version>
+          <version>3.5.0</version>
         </plugin>
         <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
@@ -84,33 +95,60 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.13.0</version>
+          <version>${maven.plugin.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.5.4</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>testng.xml</suiteXmlFile>
+                </suiteXmlFiles>
+                <testFailureIgnore>true</testFailureIgnore>
+            </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.2</version>
+          <version>3.5.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.1.4</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.1.4</version>
         </plugin>
         <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.12.1</version>
+          <version>4.0.0-M16</version>
         </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.6.1</version>
+          <version>${maven.plugin.version}</version>
         </plugin>
+          <plugin>
+              <groupId>net.masterthought</groupId>
+              <artifactId>maven-cucumber-reporting</artifactId>
+              <version>5.10.1</version>
+              <executions>
+                  <execution>
+                      <id>execution</id>
+                      <phase>test</phase>
+                      <goals>
+                          <goal>generate</goal>
+                      </goals>
+                      <configuration>
+                          <jsonFiles>
+                              <param>**/*.json</param>
+                          </jsonFiles>
+                          <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
+                          <inputDirectory>target/cucumber-reports</inputDirectory>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
       </plugins>
     </pluginManagement>
   </build>

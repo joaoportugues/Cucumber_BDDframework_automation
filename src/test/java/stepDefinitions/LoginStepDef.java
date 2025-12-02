@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import factory.ThreadLocalDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -11,15 +12,14 @@ import pages.LoginPage;
 import utils.CommonUtils;
 
 
-public class LoginStepDef {
 
-	WebDriver driver;
+public class LoginStepDef {
+	WebDriver driver = ThreadLocalDriver.getTLDriver();;
 	private LoginPage loginpage;
 	private AccountPage accountPage;
 	
 	@Given("User navigates to Login page")
 	public void user_navigates_to_login_page() {
-		driver = driverFactory.getDriver();
 		HomePage homepage = new HomePage(driver);
 		homepage.clickOnMyAccount();
 		homepage.selectLoginOption();
